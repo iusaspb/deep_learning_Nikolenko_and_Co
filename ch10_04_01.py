@@ -52,7 +52,7 @@ dec_layer_1 = tf.nn.softplus(tf.add(tf.matmul(z, w["w_gener"]['h1']), w["b_gener
 dec_layer_2 = tf.nn.softplus(tf.add(tf.matmul(dec_layer_1, w["w_gener"]['h2']), w["b_gener"]['b2']))
 x_reconstr_mean = tf.nn.sigmoid(tf.add(tf.matmul(dec_layer_2, w["w_gener"]['out_mean']),w["b_gener"]['out_mean']))
 
-reconstr_loss = -tf.reduce_sum(x * tf.log(1e-10 + x_reconstr_mean) +(1-x) * tf.log(1e-10 + 1 - x_reconstr_mean), 1)
+reconstr_loss = -tf.reduce_sum(x * tf.log(1e-7 + x_reconstr_mean) +(1-x) * tf.log(1e-7 + 1 - x_reconstr_mean), 1)
 
 latent_loss = -0.5 * tf.reduce_sum(1 + z_log_sigma_sq- tf.square(z_mean) - tf.exp(z_log_sigma_sq), 1)
 cost = tf.reduce_mean(reconstr_loss + latent_loss)
